@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # Contenedor de la Base de Datos
+  db:
+    image: mysql:8.0
+    container_name: libreria_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: libreria_ies
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  # Contenedor del Backend (Laravel)
+  backend:
+    build:
+      context: ./backend
+    container_name: libreria_backend
+    restart: always
+    ports:
+      - "8002:8000" # Mapea el puerto 8000 interno al 8002 de tu máquina
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      - db
+
+  # Contenedor del Frontend (Angular)
+  frontend:
+    build:
+      context: ./frontend
+    container_name: libreria_frontend
+    ports:
+      - "4201:4201" # Mapea el puerto 4201 interno al 4201 de tu máquina
+    volumes:
+      - ./frontend:/app
+      # Evita sobreescribir los node_modules del contenedor con los locales
+      - /app/node_modules 
+
+volumes:
+  db_data:

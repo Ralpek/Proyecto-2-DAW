@@ -1,5 +1,5 @@
-# Usamos PHP 8.2 en su versión CLI para desarrollo
-FROM php:8.2-cli
+# Usamos PHP 8.4 en su versión CLI para desarrollo
+FROM php:8.4-cli
 
 # Instalamos dependencias del sistema y extensiones de PHP necesarias
 RUN apt-get update && apt-get install -y \

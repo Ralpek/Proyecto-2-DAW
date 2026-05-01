@@ -1,1 +1,26 @@
-<p>sidebar works!</p>
+<div class="d-flex flex-column p-3 bg-light shadow-sm" style="min-height: calc(100vh - 56px);">
+  <h6 class="text-muted text-uppercase mb-3 mt-2 px-2">Menú Principal</h6>
+  
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item mb-1">
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-link text-dark">
+        Panel de Inicio
+      </a>
+    </li>
+    <li class="nav-item mb-1">
+      <a routerLink="/alumnos" routerLinkActive="active" class="nav-link text-dark">
+        Gestión de Alumnos
+      </a>
+    </li>
+    <li class="nav-item mb-1">
+      <a routerLink="/libros" routerLinkActive="active" class="nav-link text-dark">
+        Catálogo de Libros
+      </a>
+    </li>
+    <li class="nav-item mb-1">
+      <a routerLink="/prestamos" routerLinkActive="active" class="nav-link text-dark">
+        Control de Préstamos
+      </a>
+    </li>
+  </ul>
+</div>

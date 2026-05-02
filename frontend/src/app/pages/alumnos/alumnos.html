@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
   <h2 class="h3 mb-0 text-gray-800">🎓 Gestión de Alumnos</h2>
-  <button class="btn btn-primary shadow-sm">
+  <button class="btn btn-primary shadow-sm" (click)="abrirModal()">
     + Nuevo Alumno
   </button>
 </div>
@@ -9,7 +9,7 @@
   <div class="card-body p-0">
     <div class="table-responsive">
       <table class="table table-hover align-middle mb-0">
-        
+
         <thead class="table-light">
           <tr>
             <th class="px-4">ID</th>
@@ -23,41 +23,40 @@
 
         <tbody>
           @for (alumno of alumnos; track alumno.id) {
-            <tr>
-              <td class="px-4 fw-bold text-secondary">#{{ alumno.id }}</td>
-              <td>{{ alumno.nombre }}</td>
-              <td>{{ alumno.apellidos }}</td>
-              
-              <td>
-                <span class="badge" 
-                      [ngClass]="{
+          <tr>
+            <td class="px-4 fw-bold text-secondary">#{{ alumno.id }}</td>
+            <td>{{ alumno.nombre }}</td>
+            <td>{{ alumno.apellidos }}</td>
+
+            <td>
+              <span class="badge" [ngClass]="{
                         'text-bg-success': alumno.tramo === 'I', 
                         'text-bg-info text-white': alumno.tramo === 'II', 
                         'text-bg-secondary': alumno.tramo === 'Ninguno'
                       }">
-                  {{ alumno.tramo }}
-                </span>
-              </td>
-              
-              <td>
-                @if (alumno.bilingue === 'S') {
-                  <span class="badge text-bg-primary">Sí</span>
-                } @else {
-                  <span class="badge text-bg-danger">No</span>
-                }
-              </td>
-              
-              <td class="text-end px-4">
-                <button class="btn btn-sm btn-outline-secondary me-2">✏️ Editar</button>
-                <button class="btn btn-sm btn-outline-danger">🗑️ Borrar</button>
-              </td>
-            </tr>
+                {{ alumno.tramo }}
+              </span>
+            </td>
+
+            <td>
+              @if (alumno.bilingue === 'S') {
+              <span class="badge text-bg-primary">Sí</span>
+              } @else {
+              <span class="badge text-bg-danger">No</span>
+              }
+            </td>
+
+            <td class="text-end px-4">
+              <button class="btn btn-sm btn-outline-secondary me-2">Editar</button>
+              <button class="btn btn-sm btn-outline-danger">Borrar</button>
+            </td>
+          </tr>
           } @empty {
-            <tr>
-              <td colspan="6" class="text-center py-4 text-muted">
-                No hay alumnos registrados en el sistema.
-              </td>
-            </tr>
+          <tr>
+            <td colspan="6" class="text-center py-4 text-muted">
+              No hay alumnos registrados en el sistema.
+            </td>
+          </tr>
           }
         </tbody>
 
@@ -65,3 +64,57 @@
     </div>
   </div>
 </div>
+
+@if (mostrarModal) {
+  <div class="modal-backdrop fade show"></div>
+  
+  <div class="modal fade show d-block" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow">
+        
+        <div class="modal-header bg-light">
+          <h5 class="modal-title fw-bold">Añadir Nuevo Alumno</h5>
+          <button type="button" class="btn-close" (click)="cerrarModal()"></button>
+        </div>
+        
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label text-muted small fw-bold">Nombre</label>
+              <input type="text" class="form-control" name="nombre" [(ngModel)]="nuevoAlumno.nombre">
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label text-muted small fw-bold">Apellidos</label>
+              <input type="text" class="form-control" name="apellidos" [(ngModel)]="nuevoAlumno.apellidos">
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label text-muted small fw-bold">Tramo</label>
+                <select class="form-select" name="tramo" [(ngModel)]="nuevoAlumno.tramo">
+                  <option value="I">Tramo I</option>
+                  <option value="II">Tramo II</option>
+                  <option value="Ninguno">Ninguno</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label text-muted small fw-bold">Bilingüe</label>
+                <select class="form-select" name="bilingue" [(ngModel)]="nuevoAlumno.bilingue">
+                  <option value="S">Sí</option>
+                  <option value="N">No</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-outline-secondary" (click)="cerrarModal()">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="guardarAlumno()">Guardar Alumno</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+}

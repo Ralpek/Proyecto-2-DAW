@@ -1,1 +1,120 @@
-<p>libros works!</p>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="h3 mb-0 text-gray-800">Catálogo de Libros</h2>
+  <button class="btn btn-primary shadow-sm" (click)="abrirModal()">
+    + Nuevo Libro
+  </button>
+</div>
+
+<div class="card shadow-sm border-0">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="px-4">ISBN</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Ejemplares</th>
+            <th>Materia</th>
+            <th>Curso</th>
+            <th class="text-end px-4">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (libro of libros; track libro.isbn) {
+            <tr>
+              <td class="px-4 fw-bold font-monospace text-secondary">{{ libro.isbn }}</td>
+              <td class="fw-bold">{{ libro.titulo }}</td>
+              <td>{{ libro.autor }}</td>
+              <td>
+                <span class="badge text-bg-info text-white rounded-pill px-3">
+                  {{ libro.numero_ejemplares }}
+                </span>
+              </td>
+              <td>{{ getNombreMateria(libro.id_materia) }}</td>
+              <td>{{ getNombreCurso(libro.id_curso) }}</td>
+              <td class="text-end px-4">
+                <button class="btn btn-sm btn-outline-secondary me-2">✏️</button>
+                <button class="btn btn-sm btn-outline-danger">🗑️</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="7" class="text-center py-4 text-muted">
+                No hay libros registrados en el catálogo.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+@if (mostrarModal) {
+  <div class="modal-backdrop fade show"></div>
+  <div class="modal fade show d-block" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content shadow">
+        
+        <div class="modal-header bg-light">
+          <h5 class="modal-title fw-bold">Añadir Nuevo Libro</h5>
+          <button type="button" class="btn-close" (click)="cerrarModal()"></button>
+        </div>
+        
+        <div class="modal-body">
+          <form>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label class="form-label text-muted small fw-bold">ISBN</label>
+                <input type="text" class="form-control" name="isbn" [(ngModel)]="nuevoLibro.isbn" placeholder="Ej: 978-84...">
+              </div>
+              <div class="col-md-8 mb-3">
+                <label class="form-label text-muted small fw-bold">Título</label>
+                <input type="text" class="form-control" name="titulo" [(ngModel)]="nuevoLibro.titulo">
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-8 mb-3">
+                <label class="form-label text-muted small fw-bold">Autor</label>
+                <input type="text" class="form-control" name="autor" [(ngModel)]="nuevoLibro.autor">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label text-muted small fw-bold">Nº Ejemplares</label>
+                <input type="number" class="form-control" name="ejemplares" [(ngModel)]="nuevoLibro.numero_ejemplares" min="0">
+              </div>
+            </div>
+
+            <div class="row border-top pt-3 mt-1">
+              <div class="col-md-6 mb-3">
+                <label class="form-label text-muted small fw-bold">Materia Asociada</label>
+                <select class="form-select" name="materia" [(ngModel)]="nuevoLibro.id_materia">
+                  <option [value]="0" disabled>-- Selecciona una materia --</option>
+                  @for (materia of materias; track materia.id) {
+                    <option [value]="materia.id">{{ materia.nombre }} ({{ materia.departamento }})</option>
+                  }
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label text-muted small fw-bold">Curso Asociado</label>
+                <select class="form-select" name="curso" [(ngModel)]="nuevoLibro.id_curso">
+                  <option [value]="0" disabled>-- Selecciona un curso --</option>
+                  @for (curso of cursos; track curso.id) {
+                    <option [value]="curso.id">{{ curso.nivel }} (Grupo: {{ curso.curso }})</option>
+                  }
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-outline-secondary" (click)="cerrarModal()">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="guardarLibro()">Guardar Libro</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+}

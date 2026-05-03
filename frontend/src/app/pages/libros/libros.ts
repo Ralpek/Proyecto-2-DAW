@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { NotificacionService } from '../../services/notificacion';
 
 // Definimos las estructuras que vamos a usar
 export interface Libro {
@@ -34,6 +35,7 @@ export interface Curso {
 })
 export class Libros implements OnInit {
   private http = inject(HttpClient);
+  private notificacion = inject(NotificacionService);
   
   // URLs de nuestras APIs
   private apiUrlLibros = 'http://localhost:8002/api/libros';
@@ -100,11 +102,24 @@ export class Libros implements OnInit {
       next: (libroGuardado: Libro) => {
         this.libros.unshift(libroGuardado);
         this.cerrarModal();
+        this.notificacion.mostrar('Libro añadido correctamente.');
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error al guardar el libro', error.message);
         alert('Error: Asegúrate de que el ISBN no esté repetido y de haber seleccionado Materia y Curso.');
       }
     });
+  }
+
+  eliminarLibro(isbn: string): void {
+    if (confirm('¿Eliminar este libro del catálogo?')) {
+      this.http.delete(`${this.apiUrlLibros}/${isbn}`).subscribe({
+        next: () => {
+          this.libros = this.libros.filter(l => l.isbn !== isbn);
+          this.notificacion.mostrar('Libro elimninado correctamente.');
+        },
+        error: () => alert('Error al eliminar el libro.')
+      });
+    }
   }
 }

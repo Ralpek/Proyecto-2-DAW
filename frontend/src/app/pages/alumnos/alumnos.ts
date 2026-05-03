@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { NotificacionService } from '../../services/notificacion';
 
 // Definimos la estructura exacta que tendrá un alumno
 export interface Alumno {
@@ -20,12 +21,12 @@ export interface Alumno {
   styleUrl: './alumnos.css'
 })
 export class Alumnos implements OnInit{
-  // Inyectamos HttpClient para poder usarlo
-  private http = inject(HttpClient); 
-  // La URL de nuestra API de Laravel
+  private http = inject(HttpClient);
+  private notificacion = inject(NotificacionService);
   private apiUrl = 'http://localhost:8002/api/alumnos';
 
-  //Lista de alumnos
+  mostrarModal: boolean = false;
+
   alumnos: Alumno[] = []
   /*
   // Lista de prueba para poder maquetar la tabla
@@ -35,9 +36,6 @@ export class Alumnos implements OnInit{
     { id: 3, nombre: 'Lucía', apellidos: 'Fernández Díaz', tramo: 'Ninguno', bilingue: 'S' }
   ];
   */
-
-  // Controla si el modal se ve o no
-  mostrarModal: boolean = false;
 
   // Objeto temporal para guardar los datos del formulario
   nuevoAlumno: Alumno = { id: 0, nombre: '', apellidos: '', tramo: 'Ninguno', bilingue: 'N' };
@@ -73,6 +71,7 @@ export class Alumnos implements OnInit{
         // Si Laravel responde que todo ha ido bien, lo añadimos a la tabla visualmente
         this.alumnos.unshift(alumnoGuardado); // unshift lo pone de los primeros
         this.cerrarModal();
+        this.notificacion.mostrar('Alumno añadido correctamente.');
       },
       error: (error) => {
         console.error('Error al guardar el alumno', error);
@@ -80,6 +79,19 @@ export class Alumnos implements OnInit{
       }
     });
   }
+  // 4. Añade la función para eliminar de verdad
+  eliminarAlumno(id: number): void {
+    if (confirm('¿Estás seguro de que deseas eliminar este alumno?')) {
+      this.http.delete(`${this.apiUrl}/${id}`).subscribe({
+        next: () => {
+          // Lo quitamos de la tabla visualmente sin recargar la página
+          this.alumnos = this.alumnos.filter(a => a.id !== id);
+        },
+        error: () => alert('Error al eliminar el alumno.')
+      });
+    }
+  }
+
 
   /* Como funcionaba anterior mente sin Laravel guardar alumno
   guardarAlumno() {

@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { NotificacionService } from '../../services/notificacion';
 
 // Definimos las estructuras
 export interface Prestamo {
@@ -27,7 +28,8 @@ export interface Curso { id: number; curso: string; nivel: string; }
 })
 export class Prestamos implements OnInit {
   private http = inject(HttpClient);
-  
+  private notificacion = inject(NotificacionService);
+
   // URLs de nuestras APIs
   private apiUrlPrestamos = 'http://localhost:8002/api/prestamos';
   private apiUrlLibros = 'http://localhost:8002/api/libros';
@@ -101,11 +103,24 @@ export class Prestamos implements OnInit {
       next: (prestamoGuardado: Prestamo) => {
         this.prestamos.unshift(prestamoGuardado);
         this.cerrarModal();
+        this.notificacion.mostrar('Registro añadido correctamente.');
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error al guardar', error);
         alert('Error al guardar. Revisa que has seleccionado libro, alumno y curso.');
       }
     });
+  }
+
+  eliminarPrestamo(id: number | undefined): void {
+    if (id && confirm('¿Borrar este registro de préstamo?')) {
+      this.http.delete(`${this.apiUrlPrestamos}/${id}`).subscribe({
+        next: () => {
+          this.prestamos = this.prestamos.filter(p => p.id !== id);
+          this.notificacion.mostrar('Registro eliminado correctamente.');
+        },
+        error: () => alert('Error al eliminar el registro.')
+      });
+    }
   }
 }

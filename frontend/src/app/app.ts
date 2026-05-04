@@ -12,6 +12,6 @@ import { NotificacionService } from './services/notificacion';
 })
 export class App {
   title = 'libreria-front';
-  
+
   public notificacion = inject(NotificacionService);
 }

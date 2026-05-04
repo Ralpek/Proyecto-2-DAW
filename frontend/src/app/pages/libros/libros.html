@@ -35,7 +35,7 @@
               <td>{{ getNombreCurso(libro.id_curso) }}</td>
               <td class="text-end px-4">
                 <button class="btn btn-sm btn-outline-secondary me-2">Editar</button>
-                <button class="btn btn-sm btn-outline-danger">Borrar</button>
+                <button class="btn btn-sm btn-outline-danger" (click)="eliminarLibro(libro.isbn)">Borrar</button>
               </td>
             </tr>
           } @empty {

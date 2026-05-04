@@ -48,7 +48,7 @@
 
             <td class="text-end px-4">
               <button class="btn btn-sm btn-outline-secondary me-2">Editar</button>
-              <button class="btn btn-sm btn-outline-danger">Borrar</button>
+              <button class="btn btn-sm btn-outline-danger" (click)="eliminarAlumno(alumno.id)">Borrar</button>
             </td>
           </tr>
           } @empty {

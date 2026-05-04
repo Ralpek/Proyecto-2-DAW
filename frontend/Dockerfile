@@ -11,4 +11,4 @@ RUN npm install -g @angular/cli
 EXPOSE 4201
 
 # Instalamos las dependencias locales y luego arrancamos la aplicación
-CMD ["sh", "-c", "npm install && ng serve --host 0.0.0.0 --port 4201"]
+CMD ["sh", "-c", "npm install && ng serve --host 0.0.0.0 --port 4201 --poll 2000"]

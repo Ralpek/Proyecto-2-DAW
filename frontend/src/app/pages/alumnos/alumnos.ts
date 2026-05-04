@@ -79,13 +79,14 @@ export class Alumnos implements OnInit{
       }
     });
   }
-  // 4. Añade la función para eliminar de verdad
+  // función para eliminar
   eliminarAlumno(id: number): void {
     if (confirm('¿Estás seguro de que deseas eliminar este alumno?')) {
       this.http.delete(`${this.apiUrl}/${id}`).subscribe({
         next: () => {
           // Lo quitamos de la tabla visualmente sin recargar la página
           this.alumnos = this.alumnos.filter(a => a.id !== id);
+          this.notificacion.mostrar('Alumno eliminado correctamente.');
         },
         error: () => alert('Error al eliminar el alumno.')
       });

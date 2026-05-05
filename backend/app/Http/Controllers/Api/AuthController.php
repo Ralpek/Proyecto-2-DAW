@@ -11,21 +11,21 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        // 1. Validamos que nos envíen email y password
+        // 1. Validamos que nos envíen username
         $request->validate([
-            'email' => 'required|email',
+            'username' => 'required|string',
             'password' => 'required',
         ]);
 
-        // 2. Buscamos al usuario por su email
-        $user = User::where('email', $request->email)->first();
+        // 2. Buscamos por username
+        $user = User::where('username', $request->username)->first();
 
         // 3. Comprobamos si existe y si la contraseña coincide
         if (! $user || ! Hash::check($request->password, $user->password)) {
-            return response()->json(['mensaje' => 'Credenciales incorrectas'], 401);
+            return response()->json(['mensaje' => 'Usuario o contraseña incorrectos'], 401);
         }
 
-        // 4. Si todo es correcto, creamos el "pase VIP" (Token)
+        // 4. Si todo es correcto, creamos el Token
         $token = $user->createToken('token_acceso')->plainTextToken;
 
         // 5. Devolvemos el token y los datos del usuario a Angular

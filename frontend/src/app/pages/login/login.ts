@@ -14,7 +14,7 @@ export class Login {
   private http = inject(HttpClient);
   private router = inject(Router);
 
-  credenciales = { email: '', password: '' };
+  credenciales = { username: '', password: '' };
   mensajeError = '';
 
   hacerLogin() {
@@ -28,7 +28,7 @@ export class Login {
         this.router.navigate(['/dashboard']);
       },
       error: () => {
-        this.mensajeError = 'Correo o contraseña incorrectos.';
+        this.mensajeError = 'Usuario o contraseña incorrectos.';
       }
     });
   }

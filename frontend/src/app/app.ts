@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 import { Navbar } from './components/navbar/navbar';
 import { Sidebar } from './components/sidebar/sidebar';
 import { NotificacionService } from './services/notificacion';
@@ -12,6 +12,11 @@ import { NotificacionService } from './services/notificacion';
 })
 export class App {
   title = 'libreria-front';
-
+  public router = inject(Router);
   public notificacion = inject(NotificacionService);
+  
+  // Esta función comprueba si estamos en la página de login
+  esPaginaLogin(): boolean {
+    return this.router.url === '/login';
+  }
 }

@@ -1,10 +1,13 @@
+@if (!esPaginaLogin()) {
 <app-navbar></app-navbar>
 
 @if (notificacion.mensaje() !== '') {
-  <div class="alert alert-success alert-dismissible fade show shadow position-fixed top-0 start-50 translate-middle-x mt-3 z-3" role="alert" style="min-width: 300px; text-align: center;">
-    {{ notificacion.mensaje() }}
-    <button type="button" class="btn-close" (click)="notificacion.cerrar()"></button>
-  </div>
+<div
+  class="alert alert-success alert-dismissible fade show shadow position-fixed top-0 start-50 translate-middle-x mt-3 z-3"
+  role="alert" style="min-width: 300px; text-align: center;">
+  {{ notificacion.mensaje() }}
+  <button type="button" class="btn-close" (click)="notificacion.cerrar()"></button>
+</div>
 }
 
 <div class="container-fluid">
@@ -17,3 +20,8 @@
     </main>
   </div>
 </div>
+} @else {
+<div class="bg-light min-vh-100">
+  <router-outlet></router-outlet>
+</div>
+}

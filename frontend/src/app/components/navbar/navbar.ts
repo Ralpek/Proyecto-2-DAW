@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-navbar',
-  imports: [],
+  standalone: true,
   templateUrl: './navbar.html',
-  styleUrl: './navbar.css',
+  styleUrl: './navbar.css'
 })
-export class Navbar {}
+export class Navbar {
+  public auth = inject(AuthService); 
+}

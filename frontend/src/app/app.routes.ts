@@ -6,7 +6,7 @@ import { Prestamos } from './pages/prestamos/prestamos';
 import { Login } from './pages/login/login';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'dashboard', component: Dashboard },
   { path: 'alumnos', component: Alumnos },
   { path: 'libros', component: Libros },

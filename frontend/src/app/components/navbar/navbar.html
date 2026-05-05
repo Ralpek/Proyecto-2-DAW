@@ -1,10 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 shadow-sm">
   <a class="navbar-brand fw-bold" href="#">
-    Gestión de Biblioteca
+    Gestión de Biblioteca - IES Arcipreste de Hita
   </a>
-  
-  <div class="ms-auto text-white">
-    <span class="me-3">Bienvenido, Admin</span>
-    <button class="btn btn-outline-light btn-sm">Cerrar Sesión</button>
+
+  <div class="ms-auto text-white d-flex align-items-center">
+    <span class="me-3">Bienvenido, <strong>{{ auth.obtenerUsuario()?.name }}</strong></span>
+
+    <button class="btn btn-outline-light btn-sm" (click)="auth.cerrarSesion()">
+      Cerrar Sesión
+    </button>
   </div>
 </nav>

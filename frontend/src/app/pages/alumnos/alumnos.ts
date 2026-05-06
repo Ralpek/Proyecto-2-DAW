@@ -94,16 +94,31 @@ export class Alumnos implements OnInit{
   }
 
 
-  /* Como funcionaba anterior mente sin Laravel guardar alumno
-  guardarAlumno() {
-    // Le asignamos un ID falso (el tamaño actual de la lista + 1)
-    this.nuevoAlumno.id = this.alumnos.length + 1;
-
-    // Metemos el nuevo alumno en la tabla
-    this.alumnos.push({ ...this.nuevoAlumno });
-
-    // Cerramos la ventana
-    this.cerrarModal();
-  }
-    */
+  exportarJSON() {
+      const data = JSON.stringify(this.alumnos, null, 2); 
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'alumnos.json'; 
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+  
+    importarJSON(event: any) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        try {
+          const arrayJSON = JSON.parse(e.target.result);
+          arrayJSON.forEach((item: Alumno) => {
+            this.http.post<Alumno>(this.apiUrl, item).subscribe(guardado => this.alumnos.unshift(guardado));
+          });
+          this.notificacion.mostrar('Importación completada.');
+        } catch (err) { alert('JSON no válido.'); }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
 }

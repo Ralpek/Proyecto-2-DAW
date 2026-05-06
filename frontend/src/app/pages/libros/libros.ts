@@ -122,4 +122,32 @@ export class Libros implements OnInit {
       });
     }
   }
+
+  exportarJSON() {
+      const data = JSON.stringify(this.libros, null, 2); 
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'libros.json'; 
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+  
+    importarJSON(event: any) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        try {
+          const arrayJSON = JSON.parse(e.target.result);
+          arrayJSON.forEach((item: Libro) => {
+            this.http.post<Libro>(this.apiUrlLibros, item).subscribe(guardado => this.libros.unshift(guardado));
+          });
+          this.notificacion.mostrar('Importación completada.');
+        } catch (err) { alert('JSON no válido.'); }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
 }

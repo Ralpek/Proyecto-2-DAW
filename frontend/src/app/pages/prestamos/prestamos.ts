@@ -123,4 +123,32 @@ export class Prestamos implements OnInit {
       });
     }
   }
+
+  exportarJSON() {
+      const data = JSON.stringify(this.prestamos, null, 2); 
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'prestamos.json'; 
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+  
+    importarJSON(event: any) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        try {
+          const arrayJSON = JSON.parse(e.target.result);
+          arrayJSON.forEach((item: Prestamo) => {
+            this.http.post<Prestamo>(this.apiUrlPrestamos, item).subscribe(guardado => this.prestamos.unshift(guardado));
+          });
+          this.notificacion.mostrar('Importación completada.');
+        } catch (err) { alert('JSON no válido.'); }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
 }

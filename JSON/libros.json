@@ -1,0 +1,12 @@
+[
+  {
+    "isbn": "111111111111",
+    "titulo": "Titulo_Libro",
+    "autor": "Autor_Libro",
+    "numero_ejemplares": 3,
+    "id_materia": "1",
+    "id_curso": "1",
+    "updated_at": "2026-04-19T20:55:29.000000Z",
+    "created_at": "2026-04-19T20:55:29.000000Z"
+  }
+]

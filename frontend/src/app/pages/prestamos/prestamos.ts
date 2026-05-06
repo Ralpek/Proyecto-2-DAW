@@ -136,19 +136,33 @@ export class Prestamos implements OnInit {
     }
   
     importarJSON(event: any) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        try {
-          const arrayJSON = JSON.parse(e.target.result);
-          arrayJSON.forEach((item: Prestamo) => {
-            this.http.post<Prestamo>(this.apiUrlPrestamos, item).subscribe(guardado => this.prestamos.unshift(guardado));
-          });
-          this.notificacion.mostrar('Importación completada.');
-        } catch (err) { alert('JSON no válido.'); }
-      };
-      reader.readAsText(file);
-      event.target.value = '';
-    }
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    
+    reader.onload = (e: any) => {
+      try {
+        const arrayJSON = JSON.parse(e.target.result);
+        let importados = 0;
+
+        arrayJSON.forEach((item: Prestamo) => {
+          // Comprobamos si el préstamo ya existe por su ID
+          const yaExiste = this.prestamos.some(p => p.id === item.id);
+
+          if (!yaExiste) {
+            this.http.post<Prestamo>(this.apiUrlPrestamos, item).subscribe(guardado => {
+              this.prestamos.unshift(guardado);
+            });
+            importados++;
+          }
+        });
+        
+        this.notificacion.mostrar(`Importación completada. Se han añadido ${importados} préstamos nuevos.`);
+      } catch (err) {
+        alert('El archivo no es un JSON válido.');
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+  }
 }

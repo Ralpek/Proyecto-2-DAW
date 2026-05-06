@@ -106,19 +106,34 @@ export class Alumnos implements OnInit{
     }
   
     importarJSON(event: any) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        try {
-          const arrayJSON = JSON.parse(e.target.result);
-          arrayJSON.forEach((item: Alumno) => {
-            this.http.post<Alumno>(this.apiUrl, item).subscribe(guardado => this.alumnos.unshift(guardado));
-          });
-          this.notificacion.mostrar('Importación completada.');
-        } catch (err) { alert('JSON no válido.'); }
-      };
-      reader.readAsText(file);
-      event.target.value = '';
-    }
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    
+    reader.onload = (e: any) => {
+      try {
+        const arrayJSON = JSON.parse(e.target.result);
+        let importados = 0;
+
+        arrayJSON.forEach((item: Alumno) => {
+          // 1. Comprobamos si el ID ya existe en nuestra lista actual
+          const yaExiste = this.alumnos.some(a => a.id === item.id);
+
+          // 2. Si NO existe, lo enviamos al backend
+          if (!yaExiste) {
+            this.http.post<Alumno>(this.apiUrl, item).subscribe(guardado => {
+              this.alumnos.unshift(guardado);
+            });
+            importados++;
+          }
+        });
+        
+        this.notificacion.mostrar(`Importación completada. Se han añadido ${importados} alumnos nuevos.`);
+      } catch (err) {
+        alert('El archivo no es un JSON válido.');
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+  }
 }

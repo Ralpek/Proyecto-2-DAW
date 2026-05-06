@@ -66,14 +66,29 @@ export class Cursos implements OnInit {
     const file = event.target.files[0];
     if (!file) return;
     const reader = new FileReader();
+    
     reader.onload = (e: any) => {
       try {
         const arrayJSON = JSON.parse(e.target.result);
+        let importados = 0;
+
         arrayJSON.forEach((item: Curso) => {
-          this.http.post<Curso>(this.apiUrl, item).subscribe(guardado => this.cursos.unshift(guardado));
+          // 1. Comprobamos si el ID ya existe en nuestra lista actual
+          const yaExiste = this.cursos.some(a => a.id === item.id);
+
+          // 2. Si NO existe, lo enviamos al backend
+          if (!yaExiste) {
+            this.http.post<Curso>(this.apiUrl, item).subscribe(guardado => {
+              this.cursos.unshift(guardado);
+            });
+            importados++;
+          }
         });
-        this.notificacion.mostrar('Importación completada.');
-      } catch (err) { alert('JSON no válido.'); }
+        
+        this.notificacion.mostrar(`Importación completada. Se han añadido ${importados} cursos nuevos.`);
+      } catch (err) {
+        alert('El archivo no es un JSON válido.');
+      }
     };
     reader.readAsText(file);
     event.target.value = '';

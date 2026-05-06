@@ -135,19 +135,34 @@ export class Libros implements OnInit {
     }
   
     importarJSON(event: any) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        try {
-          const arrayJSON = JSON.parse(e.target.result);
-          arrayJSON.forEach((item: Libro) => {
-            this.http.post<Libro>(this.apiUrlLibros, item).subscribe(guardado => this.libros.unshift(guardado));
-          });
-          this.notificacion.mostrar('Importación completada.');
-        } catch (err) { alert('JSON no válido.'); }
-      };
-      reader.readAsText(file);
-      event.target.value = '';
-    }
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    
+    reader.onload = (e: any) => {
+      try {
+        const arrayJSON = JSON.parse(e.target.result);
+        let importados = 0; // Contador para saber cuántos se añaden
+
+        arrayJSON.forEach((item: Libro) => {
+          // 1. Comprobamos si el ISBN ya existe en nuestra lista actual
+          const yaExiste = this.libros.some(l => l.isbn === item.isbn);
+
+          // 2. Si NO existe, entonces lo enviamos a la base de datos
+          if (!yaExiste) {
+            this.http.post<Libro>(this.apiUrlLibros, item).subscribe(guardado => {
+              this.libros.unshift(guardado);
+            });
+            importados++; // Sumamos uno al contador
+          }
+        });
+        
+        this.notificacion.mostrar(`Importación completada. Se han añadido ${importados} libros nuevos.`);
+      } catch (err) {
+        alert('El archivo no es un JSON válido.');
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+  }
 }

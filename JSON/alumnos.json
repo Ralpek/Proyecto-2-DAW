@@ -1,0 +1,29 @@
+[
+  {
+    "id": 3,
+    "nombre": "Nombre_Alumno_3",
+    "apellidos": "Apellidos_Alumno_3",
+    "tramo": "II",
+    "bilingue": "N",
+    "created_at": "2026-04-19T20:52:13.000000Z",
+    "updated_at": "2026-04-19T20:52:13.000000Z"
+  },
+  {
+    "id": 2,
+    "nombre": "Nombre_Alumno_2",
+    "apellidos": "Apellidos_Alumno_2",
+    "tramo": "I",
+    "bilingue": "S",
+    "created_at": "2026-04-19T20:51:39.000000Z",
+    "updated_at": "2026-04-19T20:51:39.000000Z"
+  },
+  {
+    "id": 1,
+    "nombre": "Nombre_Alumno_1",
+    "apellidos": "Apellidos_Alumno_1",
+    "tramo": "Ninguno",
+    "bilingue": "N",
+    "created_at": "2026-04-19T20:51:07.000000Z",
+    "updated_at": "2026-04-19T20:51:07.000000Z"
+  }
+]

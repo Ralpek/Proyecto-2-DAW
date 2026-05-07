@@ -1,8 +1,0 @@
-Realizar el proyecto de la librería aplicando mejoras y cambios posibles tomando como base el proyecto antiguo.
-El proyecto de la librería utilizaba Python y archivos aparte de usar la línea de comandos para funcionar.
-Parte de los cambios a realizar es:
--Hacer la librería en Docker 
--El uso de PHP y Angular en vez de Python
--A provechar las funcionalidades de angular para reducir el código del css
--Crear la interfaz grafica para el funcionamiento
--Crear los distintos niveles de usuario

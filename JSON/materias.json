@@ -1,9 +1,12 @@
 [
-  {
-    "id": 1,
-    "nombre": "Nombre_Materia",
-    "departamento": "Departamento_Materia",
-    "created_at": "2026-04-19T20:46:55.000000Z",
-    "updated_at": "2026-04-19T20:46:55.000000Z"
-  }
+  { "id": 1, "nombre": "Matemáticas", "departamento": "Ciencias" },
+  { "id": 2, "nombre": "Lengua Castellana", "departamento": "Humanidades" },
+  { "id": 3, "nombre": "Inglés", "departamento": "Idiomas" },
+  { "id": 4, "nombre": "Biología", "departamento": "Ciencias" },
+  { "id": 5, "nombre": "Geografía e Historia", "departamento": "Ciencias Sociales" },
+  { "id": 6, "nombre": "Física y Química", "departamento": "Ciencias" },
+  { "id": 7, "nombre": "Tecnología", "departamento": "Tecnología" },
+  { "id": 8, "nombre": "Educación Física", "departamento": "Educación Física" },
+  { "id": 9, "nombre": "Música", "departamento": "Artes" },
+  { "id": 10, "nombre": "Valores Éticos", "departamento": "Humanidades" }
 ]

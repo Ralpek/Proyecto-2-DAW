@@ -1,9 +1,12 @@
 [
-  {
-    "curso": "Grupo_Curso",
-    "nivel": "Nivel_Curso",
-    "updated_at": "2026-04-19T20:54:21.000000Z",
-    "created_at": "2026-04-19T20:54:21.000000Z",
-    "id": 1
-  }
+  { "id": 1, "curso": "1ºESO", "nivel": "A" },
+  { "id": 2, "curso": "1ºESO", "nivel": "B" },
+  { "id": 3, "curso": "1ºESO", "nivel": "C" },
+  { "id": 4, "curso": "2ºESO", "nivel": "A" },
+  { "id": 5, "curso": "2ºESO", "nivel": "B" },
+  { "id": 6, "curso": "3ºESO", "nivel": "A" },
+  { "id": 7, "curso": "3ºESO", "nivel": "B" },
+  { "id": 8, "curso": "4ºESO", "nivel": "A" },
+  { "id": 9, "curso": "4ºESO", "nivel": "B" },
+  { "id": 10, "curso": "4ºESO", "nivel": "C" }
 ]

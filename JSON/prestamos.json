@@ -1,35 +1,12 @@
 [
-  {
-    "id": 3,
-    "isbn": "111111111111",
-    "id_alumno": 3,
-    "id_curso": 1,
-    "fecha_entrega": "2026-04-06",
-    "fecha_devolucion": "2026-04-19",
-    "estado": "entregado",
-    "created_at": "2026-04-19T20:58:08.000000Z",
-    "updated_at": "2026-04-19T20:58:08.000000Z"
-  },
-  {
-    "id": 2,
-    "isbn": "111111111111",
-    "id_alumno": 2,
-    "id_curso": 1,
-    "fecha_entrega": "2026-04-13",
-    "fecha_devolucion": "2026-04-18",
-    "estado": "por_devolver",
-    "created_at": "2026-04-19T20:57:30.000000Z",
-    "updated_at": "2026-04-19T20:57:30.000000Z"
-  },
-  {
-    "id": 1,
-    "isbn": "111111111111",
-    "id_alumno": 1,
-    "id_curso": 1,
-    "fecha_entrega": "2026-04-13",
-    "fecha_devolucion": "2026-04-24",
-    "estado": "por_devolver",
-    "created_at": "2026-04-19T20:57:07.000000Z",
-    "updated_at": "2026-04-19T20:57:07.000000Z"
-  }
+  { "id": 1, "isbn": "111111111111", "id_alumno": 1, "id_curso": 1, "fecha_entrega": "2026-04-10", "fecha_devolucion": "2026-04-20", "estado": "entregado" },
+  { "id": 2, "isbn": "222222222222", "id_alumno": 2, "id_curso": 1, "fecha_entrega": "2026-04-11", "fecha_devolucion": "2026-04-25", "estado": "por_devolver" },
+  { "id": 3, "isbn": "333333333333", "id_alumno": 3, "id_curso": 1, "fecha_entrega": "2026-04-12", "fecha_devolucion": "2026-04-22", "estado": "por_devolver" },
+  { "id": 4, "isbn": "444444444444", "id_alumno": 4, "id_curso": 4, "fecha_entrega": "2026-04-05", "fecha_devolucion": "2026-04-19", "estado": "entregado" },
+  { "id": 5, "isbn": "555555555555", "id_alumno": 5, "id_curso": 4, "fecha_entrega": "2026-04-07", "fecha_devolucion": "2026-04-28", "estado": "por_devolver" },
+  { "id": 6, "isbn": "666666666666", "id_alumno": 6, "id_curso": 6, "fecha_entrega": "2026-04-01", "fecha_devolucion": "2026-04-15", "estado": "entregado" },
+  { "id": 7, "isbn": "777777777777", "id_alumno": 7, "id_curso": 6, "fecha_entrega": "2026-04-03", "fecha_devolucion": "2026-04-30", "estado": "por_devolver" },
+  { "id": 8, "isbn": "888888888888", "id_alumno": 8, "id_curso": 1, "fecha_entrega": "2026-04-09", "fecha_devolucion": "2026-04-21", "estado": "entregado" },
+  { "id": 9, "isbn": "999999999999", "id_alumno": 9, "id_curso": 1, "fecha_entrega": "2026-04-14", "fecha_devolucion": "2026-04-29", "estado": "por_devolver" },
+  { "id": 10, "isbn": "101010101010", "id_alumno": 10, "id_curso": 8, "fecha_entrega": "2026-04-02", "fecha_devolucion": "2026-04-18", "estado": "entregado" }
 ]

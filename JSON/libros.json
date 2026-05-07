@@ -1,12 +1,12 @@
 [
-  {
-    "isbn": "111111111111",
-    "titulo": "Titulo_Libro",
-    "autor": "Autor_Libro",
-    "numero_ejemplares": 3,
-    "id_materia": "1",
-    "id_curso": "1",
-    "updated_at": "2026-04-19T20:55:29.000000Z",
-    "created_at": "2026-04-19T20:55:29.000000Z"
-  }
+  { "isbn": "111111111111", "titulo": "Matemáticas 1", "autor": "Editorial Alfa", "numero_ejemplares": 5, "id_materia": 1, "id_curso": 1 },
+  { "isbn": "222222222222", "titulo": "Lengua 1", "autor": "Editorial Beta", "numero_ejemplares": 4, "id_materia": 2, "id_curso": 1 },
+  { "isbn": "333333333333", "titulo": "Inglés 1", "autor": "Editorial Gamma", "numero_ejemplares": 6, "id_materia": 3, "id_curso": 1 },
+  { "isbn": "444444444444", "titulo": "Biología 2", "autor": "Editorial Delta", "numero_ejemplares": 5, "id_materia": 4, "id_curso": 4 },
+  { "isbn": "555555555555", "titulo": "Historia 2", "autor": "Editorial Epsilon", "numero_ejemplares": 3, "id_materia": 5, "id_curso": 4 },
+  { "isbn": "666666666666", "titulo": "Física 3", "autor": "Editorial Zeta", "numero_ejemplares": 4, "id_materia": 6, "id_curso": 6 },
+  { "isbn": "777777777777", "titulo": "Tecnología 3", "autor": "Editorial Omega", "numero_ejemplares": 5, "id_materia": 7, "id_curso": 6 },
+  { "isbn": "888888888888", "titulo": "Educación Física 1", "autor": "Editorial Sport", "numero_ejemplares": 10, "id_materia": 8, "id_curso": 1 },
+  { "isbn": "999999999999", "titulo": "Música 1", "autor": "Editorial Arte", "numero_ejemplares": 7, "id_materia": 9, "id_curso": 1 },
+  { "isbn": "101010101010", "titulo": "Valores Éticos 4", "autor": "Editorial Humanitas", "numero_ejemplares": 4, "id_materia": 10, "id_curso": 8 }
 ]

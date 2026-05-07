@@ -1,1 +1,82 @@
-<p>dashboard works!</p>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="h3 mb-0 text-gray-800">🏠 Panel de Inicio</h2>
+</div>
+
+<div class="row">
+
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card shadow-sm h-100 py-2 border-0 border-start border-primary border-4">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col me-2">
+            <div class="small fw-bold text-primary text-uppercase mb-1">Alumnos Registrados</div>
+            <div class="h4 mb-0 fw-bold text-dark">{{ totalAlumnos }}</div>
+          </div>
+          <div class="col-auto">
+            <span class="fs-1">🎓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card shadow-sm h-100 py-2 border-0 border-start border-success border-4">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col me-2">
+            <div class="small fw-bold text-success text-uppercase mb-1">Títulos en Catálogo</div>
+            <div class="h4 mb-0 fw-bold text-dark">{{ totalLibros }}</div>
+          </div>
+          <div class="col-auto">
+            <span class="fs-1">📖</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card shadow-sm h-100 py-2 border-0 border-start border-warning border-4">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col me-2">
+            <div class="small fw-bold text-warning text-uppercase mb-1">Préstamos Pendientes</div>
+            <div class="h4 mb-0 fw-bold text-dark">{{ prestamosPendientes }}</div>
+          </div>
+          <div class="col-auto">
+            <span class="fs-1">⏳</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card shadow-sm h-100 py-2 border-0 border-start border-secondary border-4">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col me-2">
+            <div class="small fw-bold text-secondary text-uppercase mb-1">Préstamos Históricos</div>
+            <div class="h4 mb-0 fw-bold text-dark">{{ prestamosTotales }}</div>
+          </div>
+          <div class="col-auto">
+            <span class="fs-1">🔄</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="fw-bold">Bienvenido al sistema de gestión</h5>
+        <p class="text-muted mb-0">Usa el menú lateral para navegar por las distintas secciones. Tienes {{ prestamosPendientes }} préstamos que aún no han sido devueltos.</p>
+      </div>
+    </div>
+  </div>
+</div>

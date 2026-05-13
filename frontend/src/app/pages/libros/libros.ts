@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -36,6 +36,7 @@ export interface Curso {
 export class Libros implements OnInit {
   private http = inject(HttpClient);
   private notificacion = inject(NotificacionService);
+  private cdr = inject(ChangeDetectorRef);
   
   // URLs de nuestras APIs
   private apiUrlLibros = 'http://localhost:8002/api/libros';
@@ -57,6 +58,7 @@ export class Libros implements OnInit {
     this.cargarLibros();
     this.cargarMaterias();
     this.cargarCursos();
+    this.cdr.detectChanges();
   }
 
   cargarLibros(): void {
@@ -103,6 +105,7 @@ export class Libros implements OnInit {
         this.libros.unshift(libroGuardado);
         this.cerrarModal();
         this.notificacion.mostrar('Libro añadido correctamente.');
+        this.cdr.detectChanges();
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error al guardar el libro', error.message);
@@ -117,6 +120,7 @@ export class Libros implements OnInit {
         next: () => {
           this.libros = this.libros.filter(l => l.isbn !== isbn);
           this.notificacion.mostrar('Libro elimninado correctamente.');
+          this.cdr.detectChanges();
         },
         error: () => alert('Error al eliminar el libro.')
       });
@@ -158,6 +162,7 @@ export class Libros implements OnInit {
         });
         
         this.notificacion.mostrar(`Importación completada. Se han añadido ${importados} libros nuevos.`);
+        this.cdr.detectChanges();
       } catch (err) {
         alert('El archivo no es un JSON válido.');
       }

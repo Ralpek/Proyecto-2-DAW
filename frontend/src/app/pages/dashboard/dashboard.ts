@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class Dashboard implements OnInit {
   private http = inject(HttpClient);
+  private cdr = inject(ChangeDetectorRef);
 
   // Variables para guardar los totales
   totalAlumnos: number = 0;
@@ -19,6 +20,7 @@ export class Dashboard implements OnInit {
 
   ngOnInit(): void {
     this.cargarEstadisticas();
+    this.cdr.detectChanges();
   }
 
   cargarEstadisticas(): void {

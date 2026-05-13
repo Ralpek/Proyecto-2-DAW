@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -19,6 +19,7 @@ export interface Curso {
 export class Cursos implements OnInit {
   private http = inject(HttpClient);
   private notificacion = inject(NotificacionService);
+  private cdr = inject(ChangeDetectorRef);
   apiUrl = 'http://localhost:8002/api/cursos';
 
   cursos: Curso[] = [];
@@ -27,6 +28,7 @@ export class Cursos implements OnInit {
 
   ngOnInit(): void {
     this.http.get<Curso[]>(this.apiUrl).subscribe(datos => this.cursos = datos);
+    this.cdr.detectChanges();
   }
 
   abrirModal() { this.mostrarModal = true; }
@@ -38,6 +40,7 @@ export class Cursos implements OnInit {
         this.cursos.unshift(guardado);
         this.cerrarModal();
         this.notificacion.mostrar('Curso añadido.');
+        this.cdr.detectChanges();
       }
     });
   }
@@ -47,6 +50,7 @@ export class Cursos implements OnInit {
       this.http.delete(`${this.apiUrl}/${id}`).subscribe(() => {
         this.cursos = this.cursos.filter(c => c.id !== id);
         this.notificacion.mostrar('Curso eliminado.');
+        this.cdr.detectChanges();
       });
     }
   }
@@ -86,6 +90,7 @@ export class Cursos implements OnInit {
         });
         
         this.notificacion.mostrar(`Importación completada. Se han añadido ${importados} cursos nuevos.`);
+        this.cdr.detectChanges();
       } catch (err) {
         alert('El archivo no es un JSON válido.');
       }

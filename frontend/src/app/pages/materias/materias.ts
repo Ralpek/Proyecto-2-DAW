@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -19,6 +19,7 @@ export interface Materia {
 export class Materias implements OnInit {
   private http = inject(HttpClient);
   private notificacion = inject(NotificacionService);
+  private cdr = inject(ChangeDetectorRef);
   apiUrl = 'http://localhost:8002/api/materias';
 
   materias: Materia[] = [];
@@ -27,6 +28,7 @@ export class Materias implements OnInit {
 
   ngOnInit(): void {
     this.http.get<Materia[]>(this.apiUrl).subscribe(datos => this.materias = datos);
+    this.cdr.detectChanges();
   }
 
   abrirModal() { this.mostrarModal = true; }
@@ -38,6 +40,7 @@ export class Materias implements OnInit {
         this.materias.unshift(guardado);
         this.cerrarModal();
         this.notificacion.mostrar('Materia añadida correctamente.');
+        this.cdr.detectChanges();
       }
     });
   }
@@ -47,6 +50,7 @@ export class Materias implements OnInit {
       this.http.delete(`${this.apiUrl}/${id}`).subscribe(() => {
         this.materias = this.materias.filter(m => m.id !== id);
         this.notificacion.mostrar('Materia eliminada.');
+        this.cdr.detectChanges();
       });
     }
   }
@@ -87,6 +91,7 @@ export class Materias implements OnInit {
         });
         
         this.notificacion.mostrar(`Importación completada. Se han añadido ${importados} materias nuevas.`);
+        this.cdr.detectChanges();
       } catch (err) {
         alert('El archivo no es un JSON válido.');
       }

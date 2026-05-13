@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -23,6 +23,7 @@ export interface Alumno {
 export class Alumnos implements OnInit{
   private http = inject(HttpClient);
   private notificacion = inject(NotificacionService);
+  private cdr = inject(ChangeDetectorRef);
   private apiUrl = 'http://localhost:8002/api/alumnos';
 
   mostrarModal: boolean = false;
@@ -44,6 +45,7 @@ export class Alumnos implements OnInit{
   // Esta función se ejecuta automáticamente al abrir la pantalla
   ngOnInit() {
     this.cargarAlumnos();
+    this.cdr.detectChanges();
   }
 
   // Petición GET para traer los alumnos de Laravel
@@ -72,6 +74,7 @@ export class Alumnos implements OnInit{
         this.alumnos.unshift(alumnoGuardado); // unshift lo pone de los primeros
         this.cerrarModal();
         this.notificacion.mostrar('Alumno añadido correctamente.');
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error al guardar el alumno', error);
@@ -87,6 +90,7 @@ export class Alumnos implements OnInit{
           // Lo quitamos de la tabla visualmente sin recargar la página
           this.alumnos = this.alumnos.filter(a => a.id !== id);
           this.notificacion.mostrar('Alumno eliminado correctamente.');
+          this.cdr.detectChanges();
         },
         error: () => alert('Error al eliminar el alumno.')
       });
@@ -129,6 +133,7 @@ export class Alumnos implements OnInit{
         });
         
         this.notificacion.mostrar(`Importación completada. Se han añadido ${importados} alumnos nuevos.`);
+        this.cdr.detectChanges();
       } catch (err) {
         alert('El archivo no es un JSON válido.');
       }

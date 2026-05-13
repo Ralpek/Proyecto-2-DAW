@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -29,6 +29,7 @@ export interface Curso { id: number; curso: string; nivel: string; }
 export class Prestamos implements OnInit {
   private http = inject(HttpClient);
   private notificacion = inject(NotificacionService);
+  private cdr = inject(ChangeDetectorRef);
 
   // URLs de nuestras APIs
   private apiUrlPrestamos = 'http://localhost:8002/api/prestamos';
@@ -54,6 +55,7 @@ export class Prestamos implements OnInit {
 
   ngOnInit(): void {
     this.cargarDatos();
+    this.cdr.detectChanges();
   }
 
   cargarDatos(): void {
@@ -104,6 +106,7 @@ export class Prestamos implements OnInit {
         this.prestamos.unshift(prestamoGuardado);
         this.cerrarModal();
         this.notificacion.mostrar('Registro añadido correctamente.');
+        this.cdr.detectChanges();
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error al guardar', error);
@@ -118,6 +121,7 @@ export class Prestamos implements OnInit {
         next: () => {
           this.prestamos = this.prestamos.filter(p => p.id !== id);
           this.notificacion.mostrar('Registro eliminado correctamente.');
+          this.cdr.detectChanges();
         },
         error: () => alert('Error al eliminar el registro.')
       });
@@ -158,6 +162,7 @@ export class Prestamos implements OnInit {
         });
         
         this.notificacion.mostrar(`Importación completada. Se han añadido ${importados} préstamos nuevos.`);
+        this.cdr.detectChanges();
       } catch (err) {
         alert('El archivo no es un JSON válido.');
       }

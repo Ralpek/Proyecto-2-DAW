@@ -33,6 +33,6 @@ Para ejecutar este proyecto en tu entorno local, necesitarás tener instalado:
 
 
 ## Autores
-Daniel Muñoz
-Pablo Marin
-Rafael Pérez
+* Daniel Muñoz
+* Pablo Marin
+* Rafael Pérez

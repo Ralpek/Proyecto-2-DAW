@@ -105,12 +105,16 @@ export class Prestamos implements OnInit {
       next: (prestamoGuardado: Prestamo) => {
         this.prestamos.unshift(prestamoGuardado);
         this.cerrarModal();
-        this.notificacion.mostrar('Registro añadido correctamente.');
-        this.cdr.detectChanges();
+        this.notificacion.mostrar('Préstamo registrado correctamente.');
+        this.cdr.detectChanges(); 
       },
       error: (error: HttpErrorResponse) => {
-        console.error('Error al guardar', error);
-        alert('Error al guardar. Revisa que has seleccionado libro, alumno y curso.');
+        // Este primer error sale si no hay ejemplares
+        if (error.error && error.error.mensaje) {
+          alert(error.error.mensaje);
+        } else {
+          alert('Error al registrar el préstamo. Revisa los datos.');
+        }
       }
     });
   }
